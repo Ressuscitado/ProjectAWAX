@@ -1,0 +1,1200 @@
+/*Observe que os estilos foram separados por área, para facilitar manutenção e entendimento, assim como espaçamentos entre essas áreas*/
+/*CSS DA INTERFACE COMO UM TODO*/
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    overflow-x: hidden;/*Apenas no eixo x*/
+    width: 100VW;
+}
+header {
+    height: 100px;
+    background-color: #000;
+    color: #fff;
+}
+.header {
+    max-width: 1140px;
+    height: 100px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+.logo {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.logo img {
+    height: 80px;
+    width: auto;
+}
+.menu-opener {
+    display: none;/*por padrão n aparece, só quando for mobile no @media*/
+}
+.menu {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+.menu ul,
+.menu li {
+    list-style: none;
+}
+.menu ul {
+    display: flex;
+}
+.menu li a {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 100px;
+    display: flex;/*Por padrão o A é display Inline, logo n tem altura, por isso temos q mudar*/
+    align-items: center;
+    border: 5px solid #000;/* Macete para o texto não ficar pulando no hover, ele pula pois no hover adiciona uma borda que originalmente não tinha, aqui criamos uma imperceptivel da cor do Header*/
+}
+.menu li a:hover,
+.menu .active a {/*economizando código*/
+    border-bottom: 5px solid #B28756;
+    color: #CCC;
+}
+
+/*Decidimos usar um A mesmo para representar o botão, mas poderia ter sido o button*/
+.button {
+    display: inline-block;
+    background-color: #B28756;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;/*não se usa o px*/
+    text-decoration: none;
+    padding: 10px 30px;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+.banner {
+    height: calc(100vh - 100px); /*Aqui estamos deixando o banner e header cobrindo toda a área do usuário retirando os 100px do header, 1vh = 1% da altura da tela, 100vh = 100% da altura da tela (viewport), vh representa a porcentagem da altura*/
+    background-color: #333; /* Apenas para se a imagem não carregar rápido ainda ter um fundo*/
+    background-image: url('../img/bg.jpg');
+    background-size: cover;/*Para a imagem se ajustar a área disponível*/
+    background-position: bottom;/*Aqui dou prioridade para mostrar a parte de baixo da imagem*/
+    overflow: hidden;/*o slides saem fora da dela, por isso esconde eles*/
+}
+/*Estamos usando o .banner para acessar para o elemento .sliders e .slides serem só para o banner pois vamos usar eles em outras partes mas com propriedades diferentes*/
+.banner .sliders {
+    width: 1000vw;/* O vw representa a porcentagem da largura do viewport*/
+    height: 100%;/* 100% da altura disponível*/
+}
+.banner .slide {
+    width: 100vw;
+    height: 100%;
+    display: inline-block;/*são semelhantes aos elementos apenas inline, mas permitem a definição de uma largura e altura para o elementp, Coisa que o inline não deixa*/
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.banner .slidearea {/*alinhamos aqui pois ele representa 100% da altura disponível também*/
+    display: flex;
+    height: 100%;
+    flex-direction: column;/* para ficar um abaixo do outro os H1/H2*/
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+.banner h1 {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 50px;
+}
+.banner h1 span {
+    color: #B28756;
+}
+.banner h2 {
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+/*Fazendo a area dos 3 pontinhos*/
+.banner .sliderspointers {
+    width: 100vw;
+    height: 20px;
+    position: absolute;
+    margin-top: -50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*Fazendo os 3 pontinhos*/
+.banner .pointer {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #B28756;
+    border-radius: 8px;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.banner .pointer.active {/*Quando colocamos duas classes juntas assim significa que .banner tem que ter as duas para validar o estilo*/
+    background-color: #B28756;
+}
+
+
+/*perceba que é um abaixo do outro em sequência, CLEAN CODE*/
+.default {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.default .section-title,
+.default .section-desc {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.default .section-title {
+    font-size: 22px;  
+}
+.default .section-desc {
+    font-size: 12px;
+    color: #a5a5a5;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+.default .section-body {/*Definimos largura aqui pois apenas aqui q tem realmente muito conteudo a ponto de quebrar o padrão, os outros só alinhar ao centro já resolve.*/
+    max-width: 1140px;
+    margin: auto;
+}
+/*classes juntas assim precisam ter os dois juntos no HTML para aplicar o estilo, aqui estamos criando estilo para as sesções com tema claro para economizar código*/
+.default.light {
+    background-color: #f7f7f7;
+}
+.default.light .section-title,
+.default.light .section-body {
+    color: #000;
+}
+/*Aqui os estilos para as seções dark*/
+.default.dark {
+    background-color: #000;
+}
+.default.dark .section-title,
+.default.dark .section-body {
+    color: #fff;
+}
+
+
+
+
+
+/*CSS DE ÁREAS ESPECÍFICAS*/
+.section-aboutus {
+    display: flex;
+}
+.section-aboutus--left {
+    flex: 1;
+}
+.section-aboutus--left p {
+    font-size: 14px;
+    line-height: 25px;
+}
+.section-aboutus--right {
+    width: 520px;
+    text-align: center;
+}
+.section-aboutus--right a img {
+    width: 480px;
+    box-shadow: 0px 5px 10px #333;
+}
+
+
+
+.section-services {
+    display: flex;
+}/*aplicando a borda nas imagens de forma que todas fiquem iguais, macete com o first child*/
+.section-service {
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid #333;
+    padding: 15px;
+}
+.section-service:first-child {
+    border-left: 1px solid #333;
+}
+.section-service img {
+    width: 60px;
+    height: 60px;
+}
+.section-service h4 {
+    margin-top: 20px;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+.section-service p {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #999;
+}
+
+
+
+.section-projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.section-projects--filters {
+    border: 1px solid #CCC;
+    background-color: #EEE;
+    border-radius: 30px;
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.section-projects--filters ul,
+.section-projects--filters li {
+    list-style: none;
+}
+.section-projects--filters li {
+    display: inline-block;
+    padding: 10px;
+    text-transform: uppercase;
+    font-size: 13px;
+    border-left: 1px solid #CCC;
+    color: #555;
+    border-bottom: 3px solid #EEE;/*MACETE deixando a borda da cor do fundo la em cima, para que ao criar o hover não fique quebrando por criar uma borda só no hover*/
+    cursor: pointer;
+}
+.section-projects--filters li:hover,
+.section-projects--filters li.active {
+    border-bottom: 3px solid #B28756;
+}
+/*MACETE novamente para fazer a borda espaçada usando first child*/
+.section-projects--filters li:first-child {
+    border-left: 0px;
+}
+
+.section-projects--photos {
+    width: 100vw;
+    max-width: 1140px;/* os dois juntos é ja pensando na responsividade, max-width para o desktop ter aquele limite de 1140px, já o celular será o tamanho todo da tela pois a tela é menor que 1140 então aplica automaticamente*/
+    margin-top: 20px;
+    display: flex;/*deixa todas na mesma linha, por isso abaixo o uso do wrap*/
+    flex-wrap: wrap;/*caso o tamanho do contéudo seja maior que o tamanho da tela, ele vai quebrar para de baixo*/
+    justify-content: center;/*para quando quebrar sempre fique no meio o conteúdo*/
+}
+.section-projects--photo {
+    width: 280px;/*tamanho q no desktop fica uma do lado da outra e no celular fica com proporção legal mas sem ser ao lado da outra*/
+}
+.section-projects--photoarea {/*Aqui precisamos ter criado essa class, pois ela que irá aplicar os estilos dos elementos principalmente a Margin, aqui definimos 260 px de width e 160 px de height pois o total é 280 de with mas queremos aplicar a MARGIN para afastar uma IMG da outra, o box-sizing:border-box pega apenas a border, por isso estamos fazendo manualmente o cálculo da margin visto que 1140px é a tela toda, e cada imagem terá 280 X 4 = 1120px por linha, para não quebrar devemos manter nesse tamanho*/
+    margin: 10px;
+    width: 260px;
+    height: 160px;
+}
+.section-projects--photoarea img {
+    width: inherit;/*para n ter q ficar repetindo em cada canto isso, em casa de manutenção é só mudar na pai*/
+    height: inherit;
+}
+.section-projects--photoinfo {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: inherit;
+    height: inherit;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+}
+.section-projects--photoinfo h5 {
+    font-size: 18px;
+    font-weight: 600;
+}
+.section-projects--photoarea:hover .section-projects--photoinfo {
+    display: flex;
+}
+
+
+
+.bg-team {
+    background-image: url('../../media/foto6.jpg');/*temos q colocar assim para voltar a imagem*/
+    background-size: cover;
+    background-position: center;
+    padding: 0px;
+}
+.section-team {
+    overflow: hidden;
+    max-width: 900px;/*pois o tamanho de cada imagem é de 280px + 20px margin, devem ficar apenas 3 imagens por linha*/
+    margin: auto;
+}
+.section-team--area {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.section-team .sliders {
+    width: 1000vw;
+    height: 100%;
+}
+.section-team .slide {
+    width: 280px;
+    height: 100%;
+    min-height: 300px;
+    display: inline-block;
+    background-color: #fff;
+    margin-right: 20px;
+}
+.section-team .slidearea {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    padding: 30px;
+}
+.section-team--area .sliderspointers {
+    margin-top: 30px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section-team--area .pointer {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #B28756;
+    border-radius: 8px;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.section-team--area .pointer.active {
+    background-color: #B28756;
+}
+.section-team--avatar {
+    width: 150px;
+    height: auto;
+
+}
+.section-team--name {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 17px;
+    margin-top: 30px;
+}
+.section-team--role {
+    font-size: 14px;
+    color: #999;
+    margin-top: 5px;
+}
+.section-team--social {
+    display: flex;
+    margin-top: 20px;
+}
+.section-team--social a {
+    display: inline-flex;/*para dar a possibilidade de centralizar os icones vertical/horizontal*/
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    background-color: #999;
+    border-radius: 13px;
+    margin-right: 10px;
+}
+.section-team--social a:hover {
+    background-color: #B28756;
+}
+
+
+/*Exercicio*/
+.section-happyclients {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.section-happyclients h4 {
+    font-weight: 600;
+    font-size: 23px;
+}
+.section-happyclients h6 {
+    font-size: 13px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+.section-happyclients p {
+    width: 800px;
+    font-size: 14px;
+    line-height: 25px;
+    text-align: center;
+    color: #999;   
+}
+.section-happyclients p,
+.section-happyclients h4,
+.section-happyclients img {
+    margin-top: 20px;
+}
+.section-happyclients .sliderspointers {
+    margin-top: 40px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section-happyclients .pointer {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #B28756;
+    border-radius: 8px;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.section-happyclients .pointer.active {
+    background-color: #B28756;
+}
+
+
+
+.section-marcas--branco {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;;
+}
+.section-marcas--branco img {
+    margin-left: 60px;
+    width: 130px;
+}
+.borda {
+    box-shadow: #ccc 0px 0px 1px;
+    border: 1px solid #ccc;
+}
+
+
+
+.section-prices {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1140px;
+}
+.section-price {
+    background-color: #fff;
+    width: 280px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 20px;
+}
+.section-price h6 {
+    font-weight: 600;
+    font-size: 17px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.section-price h2 {
+    font-weight: 800;
+    font-size: 35px; 
+}
+.section-price h4 {
+    font-weight: 600;
+    font-size: 15px;
+    color: #999;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+.section-price p {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: #333;
+    font-size: 14px;
+}
+.section-price--border {
+    border-bottom: #999 1px solid;
+    width: 10px;
+    height: 2px;
+}
+.botão-escuro {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 600;/*não se usa o px*/
+    text-decoration: none;
+    padding: 10px 30px;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+.botão-escuro.active,
+.botão-escuro:hover {
+    background-color: #B28756;
+}
+
+
+
+.section-products {
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+}
+.section-product--separar {
+    display: flex;
+    width: 500px;
+    margin-bottom: 20px;
+}
+.section-product--separar img {
+    width: 30px;
+    height: 30px;
+}
+.section-product--infodentro {
+    margin-left: 20px;
+}
+.section-product--infodentro h4 {
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+.section-product--infodentro p {
+    font-size: 12px;
+    color: #999;
+    line-height: 25px
+}
+.section-body.manutenção {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.default.light.maisclaro {
+    background-color: #FFF;
+}
+.default.light.maisclaro .sliderspointers {
+    width: 100vw;
+    height: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.default.light.maisclaro .pointer {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #B28756;
+    border-radius: 8px;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.default.light.maisclaro .pointer.active {
+    background-color: #B28756;
+}
+.default.light.maisclaro .finalmente {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.bordafinal {
+    width: 1140px;
+    border-bottom: #c7c7c7 1px solid;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    
+
+
+
+.section-fatosjuntos {
+    display: flex;
+}/*aplicando a borda nas imagens de forma que todas fiquem iguais, macete com o first child*/
+.section-fato {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+}
+.section-fato h2 {
+    font-weight: 600;
+    font-size: 40px;
+    text-transform: uppercase;
+    color: #B28756;
+}
+.section-fato .section-price--border {
+    border-bottom: #999 4px solid;
+    width: 25px;
+    height: 5px;
+    margin: auto;
+    margin-top: 5px;
+}
+.section-fato h4 {
+    margin-top: 20px;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+.section-fato p {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #999;
+}
+
+
+
+.default.bordafinal {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: #999 0px 0px 5px;
+    width: 100%;
+    margin: auto;
+}
+.section-redesocial {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.redesocialjunto {
+    display: flex;
+    padding-left: 30px;
+    align-items: center;
+    margin-left: 10px;
+    
+}
+.section-redesocial img {/*deveria ser link, mas fiz assim para ser mais rápido*/
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin: 5px;
+}
+.section-redesocial p {
+    color: #999;
+}
+
+
+
+
+.section-entrecontato {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.section-entrecontato input {
+    margin: 20px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    border: 0;
+    border-bottom: #999 1px solid;
+    background-color: #f7f7f7;
+    color: #999;
+    font-size: 16px;
+    outline: 0;
+}
+.section-entrecontato td {
+    padding-left: 15px;
+}
+.section-entrecontato input::placeholder {
+    color: #999;
+    font-size: 16px;
+}
+input[type="text"] {
+    width: 90%;
+    box-sizing: border-box;
+}
+input[type="email"] {
+    width: 80%;
+    box-sizing: border-box;
+}
+#subject {
+    margin-bottom: 70px;
+}
+
+
+
+
+.section-map {
+    background-image: url('../img/mapa.jpg');
+    background-size: cover;
+    background-position: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 300px;
+    filter: grayscale(100%);
+}
+.section-map--area {
+    width: 100vw;
+    max-width: 1140px;
+    margin: auto;
+}
+.section-map--info {/*aqui estamos estilizando a área branca dentro do mapa, falando que ela tem apenas 50% de largura e só posicionar ela a esquerda, maneira mais fácil*/
+    width: 40%;
+    padding: 30px;
+    background-color: #FFF;
+    color: #000;
+}
+.section-map--info-item {
+    display: flex;
+    align-items: center;
+    color: #999;
+    margin-bottom: 10px;
+}
+.section-map--info-item-img {/*como a imagem n é quadrada tivemos que estilizar uma div feita só pra ela*/
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background-color: #999;
+    border-radius: 15px;
+    margin-right: 15px;
+    filter:none;
+}
+.section-map--info-item-img img {
+    width: 15px;
+    height: auto;
+}
+
+
+
+
+.section-footer-juntos {
+    display: flex;
+    justify-content: space-around;
+    color: #999;
+
+}
+.section-footer1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    width: 300px;
+
+}
+.section-footer--imagens  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.section-footer--imagens img {
+    width: 30px;
+    height: 30px;
+    filter: grayscale(100%);
+    display: inline-block;
+    margin: auto;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.section-footer--copyright {
+    color: #f7f7f7;
+}
+.section-footer2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 300px;
+}
+.section-footer3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 300px;
+    background-color: #555;
+}
+.section-footer3 input {
+    padding-left:40px ;
+    padding-right:10px ;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 0;
+    border-bottom: #999 2px solid;
+    color: #999;
+    font-size: 16px;
+    outline: 0;
+    background-color: #555;
+}
+.section-footer3 input[type="email"] {
+    width: 100%;
+}
+
+
+
+
+/*Responsividade tablets usando duas condicionais*/
+/*aqui estamos criando os 3 traços q ao clicar mostram o menu, usamos uma imagem mas poderia ser feito com o CSS criando os traços apenas, e para fazer a dinâmica dele aparecer ao clicar é apenas com JAVASCRIPT*/
+@media (min-width:450px) and (max-width:800px) {
+    .desaparece {
+        display: none;
+       }
+
+    .logo {
+        margin-left: 20px;
+    }
+    .menu-opener {
+        display: block;
+        width: 45px;
+        margin-right: 30px;
+    }
+    nav {
+        display: none;/*o JS q irá tirar essa propriedade ao clicarem no menu*/
+        position: absolute;/*pois ele precisa estar flutuando acima dos outros itens sem interferência*/
+        z-index: 99;/*ele determina qual elemento deve ser exibido na frente ou atrás de outros elementos que se sobrepõem, Pode receber valores inteiros (positivos, negativos ou zero). Elementos com valores de z-index mais altos serão renderizados acima de elementos com valores de z-index mais baixos, e só pode ser usado com uma POSITION definida*/
+        background-color: rgba(0, 0, 0, 0.9);
+        width: 80vw;
+        height: calc(100vh - 100px);/*pois 100px é o tamanho da altura do menu*/
+        top: 100px;/*Para ele aparecer abaixo do menu*/
+   }
+   .menu ul {
+       flex-direction: column;
+   }
+   .menu li a {
+       font-weight: bold;
+       height: 80px;
+       font-size: 27px;
+       margin-left: 50px;
+       border: 0;
+   }
+   .menu li.active a {
+       border: 0;
+       color: #B28756;
+   }
+
+
+
+   .section-aboutus {
+        flex-direction: column;
+   }
+   .section-aboutus--left {
+        display: flex;
+        flex-direction: column;
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: 30px;
+        justify-content: center;
+        align-items: center;
+   }
+   .section-aboutus--right {
+        width: auto;
+   }
+   
+
+   .section-services {
+        flex-wrap: wrap;/*por si só n funcionaria, pois os itens devem ter tamanho definido*/
+   }
+   /*por isso definimos uma aqui, e falando q cada um deles tem 50% da tela, logo só apareceram 2 deles por linha*/
+   .section-service {
+        min-width: 50%;/*definindo cada um dos 4 itens como 50% da tela*/
+        margin-bottom: 30px;
+   }
+   .section-service:first-child {
+        border-left: 0;/*pois só queremos agora ela no meio*/
+   }
+
+
+
+   .section-team {
+        max-width: 580px;/*no original tem 800, assim mostrando apenas 2 e escondendo o outro, visto que é um botão de rolagem abaixo, rolagem essa deve ser feita com JS*/
+   }
+
+
+   .section-happyclients p {
+        padding-left: 50px;
+        padding-right: 50px;  
+   }
+
+
+
+    .section-marcas--branco img {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+   
+
+    .section-prices {
+        flex-wrap: wrap;
+    }
+
+
+    .section-body.manutenção {
+        flex-direction: column;
+        align-items: center;
+    }
+    .section-body.manutenção .livrogrande {
+        margin-bottom: 30px;
+    }
+    .bordafinal {
+        width: 630px;
+    }
+
+
+
+    .section-fatosjuntos {
+        flex-wrap: wrap;
+    }
+    .section-fato {
+        min-width: 50%;
+        margin-bottom: 30px;
+    }
+
+
+
+   .section-map {
+        padding-left: 30px;
+        padding-right: 30px;
+        height: auto;
+    }
+    .section-map--area {
+        width: auto;
+    }
+    .section-map--info {
+        width: auto;
+    }
+    .section-map--info-item {
+        margin-bottom: 20px;
+    }
+    .section-map--info-item:last-child {
+        margin-bottom: 0;
+    }
+
+
+
+    .section-footer-juntos {
+        flex-wrap: wrap-reverse;
+    }
+    .section-footer1 {
+        min-width: 100vw;
+        display: flex;
+        flex-direction: row-reverse;
+        padding-top: 20px;
+        padding-left: 45px;
+        padding-right: 75px; 
+    }
+
+}
+/*Para MOBILE*/
+@media (max-width:450px) {
+    .desaparece2 {
+        display: none;
+       }
+
+    .logo {
+        margin-left: 20px;
+    }
+    .menu-opener {
+        display: block;
+        width: 45px;
+        margin-right: 30px;
+    }
+    nav {
+        display: none;
+        position: absolute;
+        z-index: 99;
+        background-color: rgba(0, 0, 0, 0.9);
+        width: 80vw;
+        height: calc(100vh - 100px);
+        top: 100px;
+    }
+    .menu ul {
+        flex-direction: column;
+    }
+    .menu li a {
+        font-weight: bold;
+        height: 60px;
+        font-size: 20px;
+        margin-left: 30px;
+        border: 0;
+    }
+    .menu li.active a {
+        border: 0;
+        color: #B28756;
+    }
+    .banner h1 {
+        font-size: 30px;
+    }
+    .banner h2 {
+        font-size: 17px;
+    }
+
+
+
+    .section-aboutus {
+            flex-direction: column;
+    }
+    .section-aboutus--left {
+            display: flex;
+            flex-direction: column;
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-bottom: 30px;
+            justify-content: center;
+            align-items: center;
+    }
+    .section-aboutus--right {
+            width: auto;
+            margin-left: 30px;
+            margin-right: 30px;
+    }
+    .section-aboutus--right a img {
+            width: 100%;
+    }
+   
+
+    .section-services {
+            flex-wrap: wrap;
+    }
+    .section-service {
+            min-width: 100%;
+            margin-bottom: 30px;
+    }
+    .section-service:first-child {
+            border-left: 0;
+    }
+   
+
+
+
+
+    .section-projects--filters {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+    .section-projects--filters li:nth-child(4) {
+        border-left: 0px;
+    }
+    .section-projects--photo {
+        width: 320px;
+    }
+    .section-projects--photoarea {
+        width: 300px;
+        height: 190px;
+    }
+
+
+
+
+    .section-team {
+        max-width: 280px;
+    }
+
+
+
+
+   .section-happyclients p {
+        padding-left: 230px;
+        padding-right: 230px;  
+   }
+
+
+
+    .section-marcas--branco img {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+   
+
+    .section-prices {
+        flex-wrap: wrap;
+    }
+
+
+    .section-body.manutenção {
+        flex-direction: column;
+        align-items: center;
+    }
+    .section-body.manutenção .livrogrande {
+        margin-bottom: 30px;
+        width: 300px;
+    }
+    .section-product--infodentro {
+        width: 300px;
+        margin-left: 8px;
+    }
+    .section-product--separar {
+        margin-left: 75px;
+    }
+    .section-product--separar img {
+        width: 20px;
+        height: 20px;
+    }
+    .bordafinal {
+        width: 320px;
+    }
+
+
+
+    .section-fatosjuntos {
+        flex-wrap: wrap;
+    }
+    .section-fato {
+        min-width: 100%;
+        margin-bottom: 30px;
+    }
+
+
+
+    .redesocialjunto {
+        padding: 0px;
+        margin: 3px;
+    }
+    .redesocialjunto img {
+        width: 20px;
+        height: 20px;
+    }
+    .redesocialjunto p {
+        font-size: 8px;
+    }
+
+
+   .section-map {
+        padding: 0px;
+        padding-bottom: 550px;
+    }
+    .section-map--area {
+        width: auto;
+    }
+    .section-map--info {
+        width: auto;
+    }
+    .section-map--info-item {
+        margin-bottom: 20px;
+    }
+    .section-map--info-item:last-child {
+        margin-bottom: 0;
+    }
+
+
+
+    .section-footer-juntos {
+        flex-wrap: wrap-reverse;
+    }
+    .section-footer1 {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        margin-right: 15px;
+    }
+    .section-footer3 {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .section-footer3 {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .section-footer--copyright {
+        margin-top: 15px;
+    }
+
+}
